@@ -1,0 +1,85 @@
+<section class="login-section">
+  <div class="container-fluid h-custom">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+
+      <!-- Image Section -->
+      <div class="col-md-9 col-lg-6 col-xl-5">
+        <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.webp"
+             class="img-fluid" alt="Login Image">
+      </div>
+
+      <!-- Phone Verification Section -->
+      <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
+        <div class="sign-in-container">
+          <h2>Sign In</h2>
+
+          <form [formGroup]="phoneForm" (ngSubmit)="sendOTP()">
+            <div class="form-group">
+              <label for="phoneNumber">Phone Number:</label>
+              <input type="tel" name="phoneNumber" id="phoneNumber"
+                     formControlName="phoneNumber" placeholder="Enter your phone number" />
+            </div>
+
+            <!-- Add a container for the reCAPTCHA widget -->
+            <div id="recaptcha-sign-in"></div>
+
+            <button type="submit">Send OTP</button>
+          </form>
+        </div>
+
+        <!-- OTP Verification Section -->
+        <section *ngIf="verificationId">
+          <div class="verification-container">
+            <h2>Verify OTP</h2>
+
+            <form [formGroup]="verificationCodeForm" (ngSubmit)="verifyOTP()">
+              <div class="form-group">
+                <label for="verificationCode">Verification Code:</label>
+                <input type="text" id="verificationCode"
+                       formControlName="verificationCode" placeholder="Enter the verification code" />
+              </div>
+
+              <button type="submit">Verify OTP</button>
+            </form>
+          </div>
+        </section>
+      </div>
+
+      <!-- Email/Password Login Section -->
+      <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
+        <div class="form-group">
+          <input type="text" class="form-control" placeholder="Username" #userName required>
+        </div>
+
+        <div class="form-group">
+          <input type="password" class="form-control" placeholder="Password" #userPassword required>
+        </div>
+
+        <div class="text-center text-lg-start mt-4 pt-2">
+          <p class="small mt-2 pt-1 mb-0">Forget Password?
+            <a routerLink="/forgot-password" class="link-danger">Send email</a>
+          </p>
+        </div>
+
+        <div class="text-center mt-4 pt-2">
+          <button type="submit" class="btn btn-primary btn-lg btn-block"
+                  (click)="authService.Login(userName.value, userPassword.value)">
+            Login
+          </button>
+        </div>
+
+        <div class="text-center text-lg-start mt-4 pt-2">
+          <p class="small mt-2 pt-1 mb-0">Don't have an account?
+            <a routerLink="/register-user" class="link-danger">Register</a>
+          </p>
+        </div>
+
+        <!-- Sign in with Google Button -->
+        <div class="d-flex flex-row align-items-center justify-content-center justify-content-lg-start">
+          <p class="lead fw-normal mb-2 me-3">Sign in with</p>
+          <button class="btn btn-danger" type="button" (click)="authService.GoogleAuth()">Google</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

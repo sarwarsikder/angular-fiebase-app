@@ -1,5 +1,14 @@
 {
   "projects": {
     "default": "angularfirebaseapp-38d36"
+  },
+  "targets": {
+    "angularfirebaseapp-38d36": {
+      "hosting": {
+        "angular-firebase-app": [
+          "angularfirebaseapp-38d36"
+        ]
+      }
+    }
   }
 }
