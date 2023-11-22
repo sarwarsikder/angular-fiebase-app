@@ -71,7 +71,7 @@ export class SignInComponent implements OnInit {
 
   verifyOTP() {
     const verificationCode = this.verificationCodeForm.get('verificationCode')?.value;
-  
+
     if (this.verificationId && verificationCode) {
       this.authService.verifyOTP(this.verificationId, verificationCode)
         .then(() => {
@@ -80,7 +80,7 @@ export class SignInComponent implements OnInit {
         })
         .catch((error) => {
           console.error('Error verifying OTP:', error);
-  
+
           // Check for specific error codes
           if (error.code === 'auth/invalid-verification-code') {
             console.error('Invalid verification code. Please check and try again.');
@@ -94,5 +94,5 @@ export class SignInComponent implements OnInit {
       console.error('Invalid verification code or verification ID');
     }
   }
-  
+
 }

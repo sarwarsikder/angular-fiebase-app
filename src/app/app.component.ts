@@ -13,7 +13,11 @@ export class AppComponent {
   constructor(private authService: AuthService) {
     this.authService.isLoggedIn$.subscribe((isLoggedIn) => {
       this.isLoggedIn = isLoggedIn;
+
+      console.log(this.isLoggedIn)
     });
+
+    console.log(this.isLoggedIn)
   }
 
 

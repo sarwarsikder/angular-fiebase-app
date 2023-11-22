@@ -1,4 +1,5 @@
 import { Injectable, NgZone } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
 import {
   Auth,
   createUserWithEmailAndPassword,
@@ -22,7 +23,7 @@ import {BehaviorSubject} from "rxjs";
 })
 export class AuthService {
   UserData: any;
-  private isLoggedInSubject = new BehaviorSubject<boolean>(false);
+  public isLoggedInSubject = new BehaviorSubject<boolean>(true);
   isLoggedIn$ = this.isLoggedInSubject.asObservable();
 
   constructor(private auth: Auth, private router: Router, public ngZone: NgZone) {
@@ -65,7 +66,6 @@ export class AuthService {
         this.UserData = result.user;
         this.ngZone.run(() => {
           this.sendEmailVerification();
-          this.isLoggedInSubject.next(true);
           this.router.navigate(['/dashboard']);
         });
       })
@@ -79,11 +79,11 @@ export class AuthService {
       .then((result: any) => {
         this.UserData = result.user;
         this.ngZone.run(() => {
-          this.isLoggedInSubject.next(true);
           this.router.navigate(['/dashboard']);
         });
       })
       .catch((error) => {
+        //this.toastr.success('Hello world!', 'Toastr fun!');
         window.alert(error.message);
       });
   }
@@ -107,8 +107,7 @@ export class AuthService {
 
 
   Logout() {
-    this.isLoggedInSubject.next(false);
-    signOut(this.auth).then(() => this.router.navigate(['/sign-in']));
+    signOut(this.auth).then(() => this.router.navigate(['/login']));
   }
 
   GoogleAuth() {
@@ -117,7 +116,6 @@ export class AuthService {
 
   loginWithPopup(provider: any) {
     return signInWithPopup(this.auth, provider).then(() => {
-      this.isLoggedInSubject.next(true);
       this.router.navigate(['dashboard']);
     });
   }

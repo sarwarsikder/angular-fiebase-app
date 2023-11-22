@@ -22,7 +22,8 @@ import {AfterAuthFooterComponent} from "./components/common/after-auth-footer/af
 import {AfterAuthManuComponent} from "./components/common/after-auth-manu/after-auth-manu.component";
 import {BeforeAuthComponent} from "./components/common/before-auth/before-auth.component";
 import {BeforeAuthHeaderComponent} from "./components/common/before-auth-header/before-auth-header.component";
-import {BeforeAuthFooterComponent} from "./components/common/before-auth-footer/before-auth-footer.component"; // Import ReactiveFormsModule for form controls
+import {BeforeAuthFooterComponent} from "./components/common/before-auth-footer/before-auth-footer.component";
+import {ToastrModule} from "ngx-toastr";
 
 
 @NgModule({
@@ -46,7 +47,7 @@ import {BeforeAuthFooterComponent} from "./components/common/before-auth-footer/
     AppRoutingModule,
     provideFirebaseApp(() => initializeApp(firebaseConfig.firebase)),
     provideAuth(() => getAuth()),
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ],
   providers: [AuthService],
   bootstrap: [AppComponent]

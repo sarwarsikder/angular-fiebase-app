@@ -9,9 +9,9 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 
 const routes: Routes = [
 
-  { path: '', redirectTo: '/sign-in', pathMatch: 'full' },
-  { path: 'sign-in', component: SignInComponent, canActivate: [SecureInnerPageGuard]},
-  { path: 'register-user', component: SignUpComponent , canActivate: [SecureInnerPageGuard]},
+  { path: '', redirectTo: '/login', pathMatch: 'full' },
+  { path: 'login', component: SignInComponent, canActivate: [SecureInnerPageGuard]},
+  { path: 'register', component: SignUpComponent , canActivate: [SecureInnerPageGuard]},
   { path: 'dashboard', component: DashboardComponent , canActivate: [AuthGuard]},
   // { path: 'forgot-password', component: ForgotPasswordComponent }
 ];

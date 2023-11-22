@@ -8,7 +8,9 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class SecureInnerPageGuard implements CanActivate {
-  constructor(private authService: AuthService, public router: Router) {}
+  constructor(private authService: AuthService, public router: Router) {
+    this.authService.isLoggedInSubject.next(false)
+  }
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
