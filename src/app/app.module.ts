@@ -40,7 +40,6 @@ import {BeforeAuthFooterComponent} from "./components/common/before-auth-footer/
     BeforeAuthComponent,
     BeforeAuthHeaderComponent,
     BeforeAuthFooterComponent
-
   ],
   imports: [
     BrowserModule,

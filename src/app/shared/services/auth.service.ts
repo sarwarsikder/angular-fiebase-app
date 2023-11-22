@@ -15,12 +15,15 @@ import {
 } from '@angular/fire/auth';
 import { Router } from '@angular/router';
 import { AuthCredential, PhoneAuthProvider, UserCredential, signInWithCredential } from 'firebase/auth';
+import {BehaviorSubject} from "rxjs";
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
   UserData: any;
+  private isLoggedInSubject = new BehaviorSubject<boolean>(false);
+  isLoggedIn$ = this.isLoggedInSubject.asObservable();
 
   constructor(private auth: Auth, private router: Router, public ngZone: NgZone) {
     const authRecaptcha: Auth = getAuth();
@@ -62,6 +65,7 @@ export class AuthService {
         this.UserData = result.user;
         this.ngZone.run(() => {
           this.sendEmailVerification();
+          this.isLoggedInSubject.next(true);
           this.router.navigate(['/dashboard']);
         });
       })
@@ -75,6 +79,7 @@ export class AuthService {
       .then((result: any) => {
         this.UserData = result.user;
         this.ngZone.run(() => {
+          this.isLoggedInSubject.next(true);
           this.router.navigate(['/dashboard']);
         });
       })
@@ -102,7 +107,7 @@ export class AuthService {
 
 
   Logout() {
-
+    this.isLoggedInSubject.next(false);
     signOut(this.auth).then(() => this.router.navigate(['/sign-in']));
   }
 
@@ -112,6 +117,7 @@ export class AuthService {
 
   loginWithPopup(provider: any) {
     return signInWithPopup(this.auth, provider).then(() => {
+      this.isLoggedInSubject.next(true);
       this.router.navigate(['dashboard']);
     });
   }
